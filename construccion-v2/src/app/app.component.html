@@ -1,68 +1,55 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark justify-content-between">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">NOMBRE</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#somos">¿Quiénes Somos?</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#servicios">Servicios</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#contacto">Contacto</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#obras">Obras</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Tienda</a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link btn-primary">Iniciar Sesión</a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link btn-primary">Registrarse</a>
-        </li>
-      </ul>
-    </div>
+    <ul class="nav navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/inicio#inicio" fragmente="inicio">Inicio</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/inicio#somos" fragmente="somos">¿Quiénes Somos?</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/inicio#servicios" fragmente="servicios">Servicios</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/inicio#obras" fragmente="obras">Obras</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/inicio#contacto" fragmente="contacto">Contacto</a>
+      </li>
+    </ul>
+    <span>
+        <a href="#" class="btn btn-primary">Iniciar Sesión</a>
+        <a href="#" class="btn btn-primary">Registrarse</a>
+    </span>
   </div>
 </nav>
 
 <router-outlet></router-outlet>
 
-<footer class="page-footer font-small teal pt-4 ">
-
-  <div class="container-fluid text-center text-md-left">
-    <div class="row">
-
-      <div class="col-md-6 mt-md-0 mt-3">
-
-        <h5 class="text-uppercase font-weight-bold">Seguinos en nuestras redes</h5>
-        <a class="btn btn-primary" style="background-color: #3b5998;" href="#!" role="button">
-        <i class="fab fa-facebook-square fa-lg" aria-hidden="true"></i></a>
-
-      </div>
-
-      <hr class="clearfix w-100 d-md-none pb-3">
-
-      <div class="col-md-6 mb-md-0 mb-3">
-        <h5 class="text-uppercase font-weight-bold">AAAAAAAAAAAAAAAAAa</h5>
-      </div>
-
-    </div>
+<!-- Footer -->
+<!-- Footer -->
+<footer class="text-center text-white" style="background-color: #242424;">
+  <!-- Grid container -->
+  <div class="container p-4 pb-0">
+    <!-- Section: CTA -->
+    <section class="">
+      <p class="d-flex justify-content-center align-items-center">
+        <span class="me-3">Regístrese gratis</span>
+        <button mdbRipple type="button" class="btn btn-outline-light btn-rounded">
+          Registrarse
+        </button>
+      </p>
+    </section>
+    <!-- Section: CTA -->
   </div>
+  <!-- Grid container -->
 
   <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© 2020 Copyright:
-    <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2020 Copyright:
+    <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
   </div>
   <!-- Copyright -->
-
 </footer>
+<!-- Footer -->
