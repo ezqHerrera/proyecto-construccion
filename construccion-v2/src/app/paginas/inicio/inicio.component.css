@@ -1,17 +1,21 @@
 #inicio .carousel-inner{
   height:700px;
 }
-#inicio .carousel-caption{
+#carouselTitle{
   top:40%;
-  transform:translateY(-100%);
+  z-index:10;
+  left:10em;
+  word-spacing:2px;
+  letter-spacing:1px;
+  transform:translateY(-40%);
   bottom:initial;
-  position:absolute;
 }
-#inicio .carousel-caption h1{
-  text-shadow: 3.3px 3.3px #000;
+#carouselTitle h1{
+  text-shadow: 4px 3.3px #000;
+  color:#fff;
   font-size:350%;
-  font-weight:100;
-  font-family: 'Teko', sans-serif;
+  font-weight:200;
+  font-family: 'Bebas Neue', cursive;
 }
 
 
