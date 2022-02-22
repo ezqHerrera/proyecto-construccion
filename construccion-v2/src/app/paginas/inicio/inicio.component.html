@@ -59,7 +59,7 @@
     <button *ngIf="logueado" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#obrasModal" data-bs-whatever="@mdo">Agregar Obra</button>
     <h2 class="text-center">Obras Destacadas</h2>
     <div class="row">
-      <div class="col" *ngFor="let obra of obras">
+      <div class="col" *ngFor="let obra of obras"><!-- PENDIENTE: colocar un salto de línea cada 3 elementos -->
         <div class="card">
           <img [src]="obra.imagen" class="card-img-top" alt="...">
           <div class="card-body">
@@ -67,7 +67,7 @@
             <p class="card-text"><b>Descripción:</b> {{obra.descripcion}}</p>
             <p class="card-text"><b>Presupuesto (USD):</b> {{obra.presupuesto}}</p>
             <p class="card-text"><b>Ubicación:</b> {{obra.ubicacion}}</p>
-            <div class="btn-group w-100">
+            <div *ngIf="logueado" class="btn-group w-100">
               <button type="button" class="btn btn-danger w-50" (click)="eliminarObra(obra.id)">Eliminar</button>
               <button type="button" class="btn btn-primary w-50" data-bs-toggle="modal" data-bs-target="#obrasModal" data-bs-whatever="@mdo" (click)="editarObra(obra)">Editar</button>
             </div>
