@@ -38,9 +38,15 @@
   background:rgb(10, 0, 46);
 }
 #obras .card{
-  width:33.33%;
-  border-radius: 0% 0% 1% 1%;
+  border-radius: 0 0 1% 1%;
+}
+#obras .card img{
+  border-radius:0;
 }
 #obras h2{
   color:rgb(235, 235, 235);
+}
+.obrasBtn{
+  z-index:10;
+  right:6px;
 }

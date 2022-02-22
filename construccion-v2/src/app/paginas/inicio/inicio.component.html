@@ -3,8 +3,11 @@
   <header id="inicio">
     <div class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
+        <div *ngIf="logueado" id="editarSlider" class="position-absolute justify-content-end">
+          <button type="button" class="mt-2 btn btn-dark text-center">Editar Carrusel</button>
+        </div>
         <div id="carouselTitle" class="text-start position-absolute">
-          <h1>LE DAMOS LA BIENVENIDA</h1>
+          <h1 class="text-uppercase">le damos la bienvenida</h1>
         </div>
         <div class="carousel-item active">
           <img src="\assets\ralph-ravi-kayden-VoI2jd75M6Q-unsplash.jpg" class="d-md-block w-100" alt="...">
@@ -19,21 +22,20 @@
     </div>
   </header>
 
+
   <div id="somos" class="p-3 d-flex">
     <div class="text-start">
       <h2>¿Quiénes Somos?</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse scelerisque elit ut sapien laoreet vehicula. Duis id dui non orci convallis feugiat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi mattis elit risus, nec feugiat odio euismod eu. Duis tincidunt, lectus ac tempor porttitor, nunc mi sodales ligula, ut feugiat risus ligula accumsan risus. Nulla gravida faucibus tellus. Nullam pulvinar dignissim augue, vel tincidunt ipsum pellentesque nec. Ut euismod ultrices posuere. Phasellus posuere cursus nulla sed dictum. Nam rhoncus metus quis est convallis, ac pretium magna fringilla. Proin vitae accumsan felis, at vestibulum augue. Proin facilisis pretium tellus sit amet semper. Suspendisse commodo dui ut metus lobortis vulputate.</p>
-      <a class="btn link-primary p-0" data-bs-toggle="collapse" href="#leerMas" role="button" aria-expanded="false" aria-controls="leerMas">Leer Más</a>
-      <div class="collapse" id="leerMas">
-        <p>Aliquam purus purus, blandit at neque ac, accumsan tincidunt nulla. Nullam auctor neque nec ex iaculis venenatis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam iaculis gravida ex, non lobortis magna commodo at. Sed pellentesque maximus ipsum, eget tempus purus consequat quis. Sed egestas quam id eleifend sagittis. Proin interdum tincidunt tempus. Suspendisse ac nibh pharetra, iaculis leo at, dignissim lorem. Vivamus imperdiet purus sit amet ante sagittis tristique. Vivamus iaculis lacus urna, non placerat dolor porta tristique.</p>
-        <p>Nulla fermentum est metus. Pellentesque blandit dolor augue, id lobortis nisl feugiat luctus. Suspendisse at porttitor tellus, eu malesuada lorem. Integer id ex euismod, volutpat risus et, sagittis nisl. Sed dignissim elit tortor, nec egestas nisi volutpat at. Duis varius mauris magna, ac tempus odio molestie nec. Nulla viverra nunc nec magna egestas, sit amet pharetra dui aliquam.</p>
-        <p>Vestibulum sollicitudin rhoncus bibendum. Sed eu odio enim. Proin sed dolor pulvinar, dignissim nisl eget, pulvinar tellus. Ut ultricies non nibh et maximus. Donec blandit leo neque, at rhoncus nibh pharetra a. Vivamus iaculis ante ligula, vitae semper ligula convallis tempus. Phasellus eget massa at lorem consectetur consectetur. Etiam lobortis ante auctor, tincidunt justo sit amet, interdum nisl. Phasellus et est sed tortor fermentum blandit. Maecenas et erat sem. Etiam vestibulum vel ante at lacinia. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec quis nunc pellentesque, facilisis enim eget, laoreet nunc.</p>
-      </div>
+      <p>Aliquam purus purus, blandit at neque ac, accumsan tincidunt nulla. Nullam auctor neque nec ex iaculis venenatis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam iaculis gravida ex, non lobortis magna commodo at. Sed pellentesque maximus ipsum, eget tempus purus consequat quis. Sed egestas quam id eleifend sagittis. Proin interdum tincidunt tempus. Suspendisse ac nibh pharetra, iaculis leo at, dignissim lorem. Vivamus imperdiet purus sit amet ante sagittis tristique. Vivamus iaculis lacus urna, non placerat dolor porta tristique.</p>
+      <p>Nulla fermentum est metus. Pellentesque blandit dolor augue, id lobortis nisl feugiat luctus. Suspendisse at porttitor tellus, eu malesuada lorem. Integer id ex euismod, volutpat risus et, sagittis nisl. Sed dignissim elit tortor, nec egestas nisi volutpat at. Duis varius mauris magna, ac tempus odio molestie nec. Nulla viverra nunc nec magna egestas, sit amet pharetra dui aliquam.</p>
+      <p>Vestibulum sollicitudin rhoncus bibendum. Sed eu odio enim. Proin sed dolor pulvinar, dignissim nisl eget, pulvinar tellus. Ut ultricies non nibh et maximus. Donec blandit leo neque, at rhoncus nibh pharetra a. Vivamus iaculis ante ligula, vitae semper ligula convallis tempus. Phasellus eget massa at lorem consectetur consectetur. Etiam lobortis ante auctor, tincidunt justo sit amet, interdum nisl. Phasellus et est sed tortor fermentum blandit. Maecenas et erat sem. Etiam vestibulum vel ante at lacinia. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec quis nunc pellentesque, facilisis enim eget, laoreet nunc.</p>
     </div>
     <div class="float-md-right">
       <img class="img-fluid" src="\assets\jeriden-villegas-niSnhfMjiMI-unsplash.jpg" alt="">
     </div>
   </div>
+
 
   <div id="servicios" class="d-flex p-3">
     <div class="float-md-left">
@@ -52,111 +54,29 @@
     </div>
   </div>
 
-  <div id="obras" class="p-3 mw-100">
+
+  <div id="obras" class="p-3">
+    <button *ngIf="logueado" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#obrasModal" data-bs-whatever="@mdo">Agregar Obra</button>
     <h2 class="text-center">Obras Destacadas</h2>
-    <div class="d-block">
-      <div class="d-flex">
-        <div class="card" aria-hidden="true">
-          <img src="https://images.unsplash.com/photo-1584539094584-c4231ff84bd4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" class="card-img-top" alt="...">
+    <div class="row">
+      <div class="col" *ngFor="let obra of obras">
+        <div class="card">
+          <img [src]="obra.imagen" class="card-img-top" alt="...">
           <div class="card-body">
-            <h5 class="card-title placeholder-glow">
-              <span class="placeholder col-6"></span>
-            </h5>
-            <p class="card-text placeholder-glow">
-              <span class="placeholder col-7"></span>
-              <span class="placeholder col-6"></span>
-              <span class="placeholder col-4"></span>
-              <span class="placeholder col-6"></span>
-              <span class="placeholder col-8"></span>
-            </p>
-            <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
-          </div>
-        </div>
-        <div class="card" aria-hidden="true">
-          <img src="https://images.unsplash.com/photo-1560762776-754983522a14?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title placeholder-glow">
-              <span class="placeholder col-6"></span>
-            </h5>
-            <p class="card-text placeholder-glow">
-              <span class="placeholder col-7"></span>
-              <span class="placeholder col-6"></span>
-              <span class="placeholder col-4"></span>
-              <span class="placeholder col-6"></span>
-              <span class="placeholder col-8"></span>
-            </p>
-            <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
-          </div>
-        </div>
-        <div class="card" aria-hidden="true">
-          <img src="https://images.unsplash.com/photo-1612549671783-c5932f0128da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title placeholder-glow">
-              <span class="placeholder col-6"></span>
-            </h5>
-            <p class="card-text placeholder-glow">
-              <span class="placeholder col-7"></span>
-              <span class="placeholder col-6"></span>
-              <span class="placeholder col-4"></span>
-              <span class="placeholder col-6"></span>
-              <span class="placeholder col-8"></span>
-            </p>
-            <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
-          </div>
-        </div>
-      </div>
-      <div class="d-flex">
-        <div class="card" aria-hidden="true">
-        <img src="https://images.unsplash.com/photo-1584539094584-c4231ff84bd4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title placeholder-glow">
-            <span class="placeholder col-6"></span>
-          </h5>
-          <p class="card-text placeholder-glow">
-            <span class="placeholder col-7"></span>
-            <span class="placeholder col-6"></span>
-            <span class="placeholder col-4"></span>
-            <span class="placeholder col-6"></span>
-            <span class="placeholder col-8"></span>
-          </p>
-          <a href="#" tabindex="-1" class="btn btn-danger disabled placeholder col-6"></a>
-        </div>
-        </div>
-        <div class="card" aria-hidden="true">
-          <img src="https://images.unsplash.com/photo-1560762776-754983522a14?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title placeholder-glow">
-              <span class="placeholder col-6"></span>
-            </h5>
-            <p class="card-text placeholder-glow">
-              <span class="placeholder col-7"></span>
-              <span class="placeholder col-6"></span>
-              <span class="placeholder col-4"></span>
-              <span class="placeholder col-6"></span>
-              <span class="placeholder col-8"></span>
-            </p>
-            <a href="#" tabindex="-1" class="btn btn-danger disabled placeholder col-6"></a>
-          </div>
-        </div>
-        <div class="card" aria-hidden="true">
-          <img src="https://images.unsplash.com/photo-1612549671783-c5932f0128da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title placeholder-glow">
-              <span class="placeholder col-6"></span>
-            </h5>
-            <p class="card-text placeholder-glow">
-              <span class="placeholder col-7"></span>
-              <span class="placeholder col-6"></span>
-              <span class="placeholder col-4"></span>
-              <span class="placeholder col-6"></span>
-              <span class="placeholder col-8"></span>
-            </p>
-            <a href="#" tabindex="-1" class="btn btn-danger disabled placeholder col-6"></a>
+            <h4 class="card-title">{{obra.nombre}}</h4>
+            <p class="card-text"><b>Descripción:</b> {{obra.descripcion}}</p>
+            <p class="card-text"><b>Presupuesto (USD):</b> {{obra.presupuesto}}</p>
+            <p class="card-text"><b>Ubicación:</b> {{obra.ubicacion}}</p>
+            <div class="btn-group w-100">
+              <button type="button" class="btn btn-danger w-50" (click)="eliminarObra(obra.id)">Eliminar</button>
+              <button type="button" class="btn btn-primary w-50" data-bs-toggle="modal" data-bs-target="#obrasModal" data-bs-whatever="@mdo" (click)="editarObra(obra)">Editar</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 
   <div id="contacto" class="d-flex w-100 p-3 mw-100">
     <div class="w-50">
@@ -173,5 +93,45 @@
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3103.7432699100236!2d-67.98784018502919!3d-38.92984507956561!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x960a30ef2ee4b6b3%3A0xf60599626c221a60!2sCentro%20Educativo%20Tecnica%20N%C2%BA%2030!5e0!3m2!1ses-419!2sar!4v1639661164092!5m2!1ses-419!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
   </div>
+
+
+  <div id="obrasModal" class="modal fade" tabindex="-1" aria-labelledby="obrasModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar una Obra</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="vaciarFormulario()" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="obrasForm">
+          <div class="mb-3">
+            <label for="obraNombre" class="col-form-label">Nombre:</label>
+            <input type="text" class="form-control" formControlName="nombre" id="obraNombre">
+          </div>
+          <div class="mb-3">
+            <label for="descObra" class="col-form-label">Descripción:</label>
+            <input type="text" class="form-control" formControlName="descripcion" id="descObra">
+          </div>
+          <div class="mb-2">
+            <label for="presObra" class="col-form-label">Presupuesto (USD):</label>
+            <input type="text" class="form-control" formControlName="presupuesto" id="presObra">
+          </div>
+          <div class="mb-3">
+            <label for="ubiObra" class="col-form-label">Ubicación:</label>
+            <input type="text" class="form-control" formControlName="ubicacion" id="ubiObra">
+          </div>
+          <div class="mb-3">
+            <label for="imgObra" class="col-form-label">Imagen (URL):</label>
+            <input type="text" class="form-control" formControlName="imagen" id="imgObra">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="vaciarFormulario()">Cancelar</button>
+        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" data-bs-whatever="@mdo" (click)="guardarObra()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>

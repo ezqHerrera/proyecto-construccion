@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
+import { Obra } from 'src/app/models/obra';
 import { CambiosService } from '../../services/cambios.service';
 
 @Component({
@@ -8,13 +13,111 @@ import { CambiosService } from '../../services/cambios.service';
 })
 export class InicioComponent implements OnInit {
 
-  constructor(private cambiosService: CambiosService) { }
+  public logueado: boolean = false;
+  public email: string = '';
+
+  public obras: Obra[] = [];
+  public editar : boolean = false;
+  public obraSeleccionada?: Obra;
+
+  pUpload!: Observable<number|undefined>
+  urlImage!: Observable<string>
+
+  public obrasForm:FormGroup
+  constructor(private auth:AuthService, private storage:AngularFireStorage, private fb:FormBuilder, private cambiosService:CambiosService) {
+    this.obrasForm = fb.group({
+      nombre:['', Validators.required],
+      descripcion:['', Validators.required],
+      presupuesto:['', Validators.required],
+      ubicacion:['', Validators.required],
+      imagen:['', Validators.required]
+    })
+  }
 
   ngOnInit(): void {
+
+    this.auth.user.subscribe((user) => {
+      if (user) {
+        this.logueado = true;
+        this.email = user.email;
+      } else {
+        this.logueado = false;
+      }
+    })
+
+    this.cambiosService.obtenerObras().subscribe((resp) => {
+      this.obras = resp
+    })
+
   }
 
   subirImagen(file:File){
     this.cambiosService.subirImagen(file);
+  }
+
+  vaciarFormulario(){
+    this.obrasForm.reset();
+  }
+
+  editarObra(obra:Obra) {
+    this.editar = true;
+    const { nombre, descripcion, presupuesto, ubicacion, imagen } = obra;
+    this.obrasForm.setValue({ nombre, descripcion, presupuesto, ubicacion, imagen })
+  }
+
+  actualizarObra(){
+    if (this.editar){
+      this.cambiosService.updateGebaeude(this.obraSeleccionada!.id, this.obrasForm.value).then((resp) => {
+        this.editar = false;
+        alert('Se han guardado los cambios.');
+        this.obraSeleccionada = undefined;
+      })
+    }
+  }
+
+  eliminarObra(idObra:string){
+    let eliminar=confirm("¿Confirmar eliminación?")
+    if(eliminar){
+      this.cambiosService.deleteObra(idObra).then(resp => alert('Se ha eliminado una obra.'));
+    }
+  }
+
+  guardarObra(){
+    if (!this.obrasForm.invalid) {
+      if (this.editar) {
+        this.cambiosService.updateGebaeude(this.obraSeleccionada!.id, this.obrasForm.value).then(resp => {
+          this.editar = false;
+          alert('Cambios guardados.');
+          this.obrasForm.reset();
+        })
+      }
+      else {
+        //llevar los datos a la base de datos, o sea, a Firestore
+        this.cambiosService.createObra(this.obrasForm.value).then((resultado) => {
+          alert('Se ha agregado una obra.');
+          this.obrasForm.reset();
+        })
+      }
+    }
+  }
+
+  addObras(){
+    if (this.obraSeleccionada){
+     this.cambiosService.updateGebaeude(this.obraSeleccionada.id, this.obrasForm.value)
+     .then((resp) => {
+      alert('Se ha actualizado la obra con éxito.');
+      this.obraSeleccionada = undefined;
+     })
+    } else {
+      this.cambiosService.createObra(this.obrasForm.value)
+     .then(resp => {
+       this.vaciarFormulario();
+      //  alert('Se ha agregado una obra.');
+     })
+      .catch((error) => {
+        alert(error)
+     })
+    }
   }
 
 }
