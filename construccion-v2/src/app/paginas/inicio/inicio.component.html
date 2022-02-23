@@ -74,8 +74,8 @@
 
 
   <div id="obras" class="p-3">
-    <button *ngIf="logueado" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#obrasModal"
-      data-bs-whatever="@mdo">Agregar Obra</button>
+    <button *ngIf="logueado" class="btn btn-primary float-end" data-bs-toggle="modal"
+      data-bs-target="#obrasModal">Agregar Obra</button>
     <h2 class="text-center">Obras Destacadas</h2>
     <div class="row">
       <div class="col" *ngFor="let obra of obras">
@@ -151,7 +151,7 @@
             </div>
             <div class="mb-3">
               <label for="formFile" class="form-label">Imagen Representativa:</label>
-              <input class="form-control" type="file" id="formFile" formControlName='imagen'
+              <input class="form-control" type="text" id="formFile" formControlName='imagen'
                 (change)="obtenerFile($event)">
             </div>
           </form>

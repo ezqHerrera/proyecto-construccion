@@ -34,7 +34,7 @@ export class CambiosService {
   private urlImagen : string = '';
   subirImagen(file:File, obra:Obra, idObra?:string){
   //Ruta a la imagen
-  const imagenPath = `/imagenes/${file.name}`;
+  const imagenPath:string = '';
   //Referencia a la imagen
   const imageRef = this.storage.ref(imagenPath);
   //Subimos la imagen a Storage
@@ -89,7 +89,7 @@ export class CambiosService {
       }
     })
   }
-  
+
   //Elimina una obra
   public deleteObra(idObra: string): Promise<void> {
     return new Promise(async (resolve, reject) => {

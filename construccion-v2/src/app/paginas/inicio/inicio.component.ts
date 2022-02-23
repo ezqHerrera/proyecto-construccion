@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { Obra } from 'src/app/paginas/obra.interface';
 import { CambiosService } from '../cambios.service';
 
+
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
@@ -65,11 +66,11 @@ export class InicioComponent implements OnInit {
     //Pregunto si el formulario es válido
     if (!this.obrasForm.invalid) {
       //Pregunto si quiero editar
-      if (this.editar) {
+      if (this.obraSeleccionada) {
         //Pregunto si cargué algo en el file
         //Si no cargo nada, edito el producto sin subir una imagen
         if (!this.file) {
-          this.cambiosService.updateGebaeude(this.obraSeleccionada!.id, this.obrasForm.value).then(resp => {
+          this.cambiosService.updateGebaeude(this.obraSeleccionada!.id, this.obrasForm.value).then((resp) => {
             this.editar = false;
             alert('Cambios guardados.');
             this.obrasForm.reset();
