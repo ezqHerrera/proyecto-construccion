@@ -16,9 +16,14 @@ export class InicioComponent implements OnInit {
   public logueado: boolean = false;
   public email: string = '';
 
+  //Colección de obras
   public obras: Obra[] = [];
   public editar : boolean = false;
   public obraSeleccionada?: Obra;
+  public pathImagen : string = '';
+
+  //Imagen
+  private file?:File;
 
   pUpload!: Observable<number|undefined>
   urlImage!: Observable<string>
@@ -51,18 +56,56 @@ export class InicioComponent implements OnInit {
 
   }
 
-  subirImagen(file:File){
-    this.cambiosService.subirImagen(file);
+  async guardarObra(){
+
+    if (!this.obrasForm.invalid) {
+      if (this.editar) {
+        if (!this.file) {
+          this.cambiosService.updateGebaeude(this.obraSeleccionada!.id, this.obrasForm.value).then(resp => {
+            this.editar = false;
+            alert('Cambios guardados.');
+            this.obrasForm.reset();
+          })
+        }
+        else {
+          this.cambiosService.subirImagen(this.file!, this.obrasForm.value, this.obraSeleccionada!.id)
+          this.obraSeleccionada = undefined;
+          this.file = undefined;
+        }
+      }
+      else {
+        //Agregar Obra
+        //llevar los datos a la base de datos, o sea, a Firestore
+        this.cambiosService.subirImagen(this.file!, this.obrasForm.value);
+          alert('Se ha agregado una obra.');
+          this.obrasForm.reset();
+      }
+    }
+    else{
+      alert('El formulario es inválido.')
+    }
+  }
+
+  eliminarObra(idObra:string){
+    let eliminar=confirm("¿Desea eliminar la obra?")
+    if(eliminar){
+      this.cambiosService.deleteObra(idObra).then(resp => alert('Se ha eliminado una obra.'));
+    }
+  }
+
+  selectObra(obra:Obra) {
+    this.editar = true;
+    this.obraSeleccionada = obra;
+    const { nombre, descripcion, presupuesto, ubicacion, imagen } = obra;
+    this.obrasForm.setValue({ nombre, descripcion, presupuesto, ubicacion, imagen })
   }
 
   vaciarFormulario(){
     this.obrasForm.reset();
   }
 
-  editarObra(obra:Obra) {
-    this.editar = true;
-    const { nombre, descripcion, presupuesto, ubicacion, imagen } = obra;
-    this.obrasForm.setValue({ nombre, descripcion, presupuesto, ubicacion, imagen })
+  obtenerFile(event:any){
+    this.file = (event.target.files[0]);
   }
 
   actualizarObra(){
@@ -70,54 +113,28 @@ export class InicioComponent implements OnInit {
       this.cambiosService.updateGebaeude(this.obraSeleccionada!.id, this.obrasForm.value).then((resp) => {
         this.editar = false;
         alert('Se han guardado los cambios.');
-        this.obraSeleccionada = undefined;
+        this.obrasForm.reset();
       })
     }
   }
 
-  eliminarObra(idObra:string){
-    let eliminar=confirm("¿Confirmar eliminación?")
-    if(eliminar){
-      this.cambiosService.deleteObra(idObra).then(resp => alert('Se ha eliminado una obra.'));
-    }
-  }
-
-  guardarObra(){
-    if (!this.obrasForm.invalid) {
-      if (this.editar) {
-        this.cambiosService.updateGebaeude(this.obraSeleccionada!.id, this.obrasForm.value).then(resp => {
-          this.editar = false;
-          alert('Cambios guardados.');
-          this.obrasForm.reset();
-        })
-      }
-      else {
-        //llevar los datos a la base de datos, o sea, a Firestore
-        this.cambiosService.createObra(this.obrasForm.value).then((resultado) => {
-          alert('Se ha agregado una obra.');
-          this.obrasForm.reset();
-        })
-      }
-    }
-  }
-
-  addObras(){
-    if (this.obraSeleccionada){
-     this.cambiosService.updateGebaeude(this.obraSeleccionada.id, this.obrasForm.value)
-     .then((resp) => {
-      alert('Se ha actualizado la obra con éxito.');
-      this.obraSeleccionada = undefined;
-     })
-    } else {
-      this.cambiosService.createObra(this.obrasForm.value)
-     .then(resp => {
-       this.vaciarFormulario();
-      //  alert('Se ha agregado una obra.');
-     })
-      .catch((error) => {
-        alert(error)
-     })
-    }
-  }
+  // addObras(){
+  //   if (this.obraSeleccionada){
+  //    this.cambiosService.updateGebaeude(this.obraSeleccionada.id, this.obrasForm.value)
+  //    .then((resp) => {
+  //     alert('Se ha actualizado la obra con éxito.');
+  //     this.obraSeleccionada = undefined;
+  //    })
+  //   } else {
+  //     this.cambiosService.createObra(this.obrasForm.value)
+  //    .then(resp => {
+  //      this.vaciarFormulario();
+  //     //  alert('Se ha agregado una obra.');
+  //    })
+  //     .catch((error) => {
+  //       alert(error)
+  //    })
+  //   }
+  // }
 
 }

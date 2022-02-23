@@ -20,18 +20,30 @@ export class CambiosService {
   }
 
   private urlImagen : string = '';
-  subirImagen(file:File){
-    const imagenPath = `src/assets/${file.name}`;
-    const imageRef = this.storage.ref(imagenPath);
-    const tarea = this.storage.upload(imagenPath, file);
+  subirImagen(file:File, obra:Obra, idObra?:string){
+  //Ruta a la imagen
+  const imagenPath = `imagenes/${file.name}`;
+  //Referencia a la imagen
+  const imageRef = this.storage.ref(imagenPath);
+  //Subimos la imagen a Storage
+  const tarea = this.storage.upload(imagenPath, file);
 
-    tarea.snapshotChanges().pipe(
-      finalize(() => {
-        imageRef.getDownloadURL().subscribe((url:any) => {
-          this.urlImagen = url;
-        })
-      })
-    ).subscribe();
+  //Obtener la referencia a la imagen, o sea, a la url
+  tarea.snapshotChanges().pipe(
+    finalize(() => {//si imagen(url) no está definido como string, genera un error por estar implícitamente definido como 'any'
+      imageRef.getDownloadURL().subscribe(((imagen:string) => {
+        this.urlImagen = imagen;
+
+        //Agrego la url de la imagen a la obra
+        obra.imagen = this.urlImagen;
+        if (idObra) {
+          this.updateGebaeude(idObra, obra);
+        }
+        else {
+          this.createObra(obra);
+        }
+      }))
+    })).subscribe();
   }
 
   //Obtiene una obra
@@ -88,59 +100,4 @@ export class CambiosService {
       }
     })
   }
-
-
-  /**
-  public cursos!:Observable<Curso[]>;
-  private collectionCurso!:AngularFirestoreCollection<Curso>;
-  constructor(private firestore:AngularFirestore) {
-    this.collectionCurso = firestore.collection<Curso>('cursos');
-    this.obtenerCursos();
-  }
-
-  obtenerCursos(){
-    return this.cursos = this.collectionCurso.snapshotChanges().pipe(map(
-      action => action.map(a => a.payload.doc.data() as Curso)
-      )
-    )
-  }
-
-  //Obtiene un curso
-  public getCursoById(data:Curso){
-    return this.firestore.collection('cursos').doc(data.id).snapshotChanges();
-  }
-
-  //Actualiza un curso
-  public updateCurso(data:Curso, id:string){
-    this.firestore.collection('cursos').doc(id).update(data);
-    console.log(data)
-  }
-
-  //Elimina un curso
-  public deleteCurso(data:Curso):Promise<void>{
-    return new Promise(async(resolve, reject) => {
-      try{
-        const result = await this.collectionCurso?.doc(data.id).delete();
-        resolve (result)
-        alert('Curso eliminado.')
-      } catch (error) {
-        reject(error)
-      }
-    })
-  }
-
-  //Crea un nuevo curso
-  public createCurso(data:Curso):Promise<void>{
-    return new Promise(async(resolve, reject) => {
-      try{
-        const id = this.firestore.createId();
-        data.id = id;
-        const result = await this.collectionCurso?.doc(id).set(data);
-        resolve(result);
-        alert('Se ha agregado un curso.')
-      } catch (err) {
-        reject (err)
-      }
-    })
-  } */
 }
