@@ -79,7 +79,6 @@
     <h2 class="text-center">Obras Destacadas</h2>
     <div class="row">
       <div class="col" *ngFor="let obra of obras">
-        <!-- PENDIENTE: colocar un salto de línea cada 3 elementos -->
         <div class="card">
           <img [src]="obra.imagen" class="card-img-top" alt="...">
           <div class="card-body">
@@ -90,7 +89,7 @@
             <div *ngIf="logueado" class="btn-group w-100">
               <button type="button" class="btn btn-danger w-50" (click)="eliminarObra(obra.id)">Eliminar</button>
               <button type="button" class="btn btn-primary w-50" data-bs-toggle="modal" data-bs-target="#obrasModal"
-                data-bs-whatever="@mdo" (click)="selectObra(obra)">Editar</button>
+                (click)="selectObra(obra)">Editar</button>
             </div>
           </div>
         </div>
@@ -128,7 +127,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Editar una Obra</h5>
+          <h5 class="modal-title">Editar o Agregar una Obra</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="vaciarFormulario()"
             aria-label="Cerrar"></button>
         </div>
@@ -136,31 +135,31 @@
           <form [formGroup]="obrasForm">
             <div class="mb-3">
               <label for="obraNombre" class="col-form-label">Nombre:</label>
-              <input type="text" class="form-control" formControlName="nombre" id="obraNombre">
+              <input type="text" class="form-control" formControlName='nombre' id="obraNombre">
             </div>
             <div class="mb-3">
               <label for="descObra" class="col-form-label">Descripción:</label>
-              <input type="text" class="form-control" formControlName="descripcion" id="descObra">
+              <textarea class="form-control" formControlName='descripcion' id="descObra"></textarea>
             </div>
             <div class="mb-2">
               <label for="presObra" class="col-form-label">Presupuesto (USD):</label>
-              <input type="text" class="form-control" formControlName="presupuesto" id="presObra">
+              <input type="text" class="form-control" formControlName='presupuesto' id="presObra">
             </div>
             <div class="mb-3">
               <label for="ubiObra" class="col-form-label">Ubicación:</label>
-              <input type="text" class="form-control" formControlName="ubicacion" id="ubiObra">
+              <input type="text" class="form-control" formControlName='ubicacion' id="ubiObra">
             </div>
             <div class="mb-3">
               <label for="formFile" class="form-label">Imagen Representativa:</label>
-              <input class="form-control" type="file" id="formFile" formControlName="imagen" (change)="obtenerFile($event)">
+              <input class="form-control" type="file" id="formFile" formControlName='imagen'
+                (change)="obtenerFile($event)">
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-            (click)="vaciarFormulario()">Cancelar</button>
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" data-bs-whatever="@mdo"
-            (click)="guardarObra()">Guardar</button>
+          <button type="button" class="btn btn-secondary" (click)="vaciarFormulario()"
+            data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" (click)="guardarObra()" data-bs-dismiss="modal">Guardar</button>
         </div>
       </div>
     </div>

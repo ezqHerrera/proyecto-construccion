@@ -3,8 +3,8 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
-import { Obra } from 'src/app/models/obra';
-import { CambiosService } from '../../services/cambios.service';
+import { Obra } from 'src/app/paginas/obra.interface';
+import { CambiosService } from '../cambios.service';
 
 @Component({
   selector: 'app-inicio',
@@ -56,10 +56,18 @@ export class InicioComponent implements OnInit {
 
   }
 
+  obtenerFile(event:any){
+    this.file = event.target.files[0];
+  }
+
   async guardarObra(){
 
+    //Pregunto si el formulario es válido
     if (!this.obrasForm.invalid) {
+      //Pregunto si quiero editar
       if (this.editar) {
+        //Pregunto si cargué algo en el file
+        //Si no cargo nada, edito el producto sin subir una imagen
         if (!this.file) {
           this.cambiosService.updateGebaeude(this.obraSeleccionada!.id, this.obrasForm.value).then(resp => {
             this.editar = false;
@@ -67,10 +75,12 @@ export class InicioComponent implements OnInit {
             this.obrasForm.reset();
           })
         }
+        //Si el file contiene algo, entonces lo subo a storage
         else {
           this.cambiosService.subirImagen(this.file!, this.obrasForm.value, this.obraSeleccionada!.id)
           this.obraSeleccionada = undefined;
           this.file = undefined;
+          this.obrasForm.reset();
         }
       }
       else {
@@ -86,10 +96,10 @@ export class InicioComponent implements OnInit {
     }
   }
 
-  eliminarObra(idObra:string){
+  eliminarObra(id:string){
     let eliminar=confirm("¿Desea eliminar la obra?")
     if(eliminar){
-      this.cambiosService.deleteObra(idObra).then(resp => alert('Se ha eliminado una obra.'));
+      this.cambiosService.deleteObra(id).then(resp => alert('Se ha eliminado una obra.'));
     }
   }
 
@@ -102,10 +112,6 @@ export class InicioComponent implements OnInit {
 
   vaciarFormulario(){
     this.obrasForm.reset();
-  }
-
-  obtenerFile(event:any){
-    this.file = (event.target.files[0]);
   }
 
   actualizarObra(){
